@@ -74,14 +74,40 @@ To train the improved STAR-Beat model from scratch (including simulated CDAE pre
 ## Step 2: Evaluation
 Evaluate the trained model and find the optimal decision threshold dynamically: **evaluation_improved.py**/**mimic_train_evaluation_improved**
 
+<div align="center">
+
+**TABLE I. STAR-BEAT MODEL PERFORMANCE ON PUBLIC DATASETS**
+
+| Dataset | Precision (PPV) | Recall (TPR) | F1-Score | AUROC |
+| :--- | :---: | :---: | :---: | :---: |
+| **Stanford Public** | 0.970 | 0.954 | 0.962 | 0.998 |
+| **MIMIC PERform** | 0.964 | 0.928 | 0.946 | 0.986 |
+
+</div>
+
+
 ## Step 3: Ablation Studies
 To verify the contribution of the SE attention, BiGRU, pretrainig, or Multi-task architecture, modify the boolean flags at the top of the ablation script and run:**python ablation_experiement_se_bigru.py** **python ablation_evaluation.py**
+
+<div align="center">
+
+**TABLE II. EVALUATION OF THE PERFORMANCE OF EACH MODEL VARIANT IN THE ABLATION EXPERIMENT**
+
+| Model Variant | TPR | PPV | F1 | AUROC |
+| :--- | :---: | :---: | :---: | :---: |
+| **STAR-Beat-singletask** | 0.929 | 0.318 | 0.473 | 0.706 |
+| **STAR-Beat-nopretrain** | 0.907 | **0.980** | 0.942 | 0.997 |
+| **STAR-Beat-nose**       | 0.747 | 0.334 | 0.462 | 0.810 |
+| **STAR-Beat-nobigru**    | 0.930 | 0.970 | 0.949 | 0.997 |
+| **STAR-Beat**            | **0.954** | 0.970 | **0.962** | **0.998** |
+
+</div>
 
 ## Step 4: Comparision experiment
 In order to comprehensively verify the advancement and effectiveness of the STAR-Beat model in the detection of atrial fibrillation, four representative methods are carefully selected as baseline models for multi-dimensional comparison.
 <div align="center">
 
-**TABLE I. THE EVALUATION RESULTS OF EACH MODEL ON THE TEST SET**
+**TABLE III. THE EVALUATION RESULTS OF EACH MODEL ON THE TEST SET**
 
 | Model | TPR | PPV | F1 | AUROC |
 | :--- | :---: | :---: | :---: | :---: |
@@ -99,14 +125,24 @@ Generate physiological heatmaps to verify the mathematical and medical logic of 
 
 This script will output: **UMAP** Latent Space Clustering and Saliency Maps (**Grad-CAM, IG, Occlusion**).
 
-## Step 6: Lightweighting
-Test the 3-stage ablation compression strategy for wearable devices. Modify ABLATION_STEP =  1, 2, or 3 in the script to test different compression limits: **python deep_1_lite_stage_validation.py**
-
-
-# 🔍 Model Explainability
-STAR-Beat bridges the trust gap in deep learning by providing explicit physiological transparency. Our interpretability module proves that the model focuses on erratic rhythms, variable amplitudes, and morphological distortions (pathological hemodynamic characteristics), rather than fitting data biases.
 <p align="center">
 <img width="9424" height="4363" alt="Image" src="https://github.com/user-attachments/assets/49e20170-a0ee-4da5-ad79-7c13d6b91768" />
 <br>
 <em>Fig. 2.	Visualization of the deep feature space and model interpretability.</em>
 </p>
+
+## Step 6: Lightweighting
+Test the 3-stage ablation compression strategy for wearable devices. Modify ABLATION_STEP =  1, 2, or 3 in the script to test different compression limits: **python deep_1_lite_stage_validation.py**
+
+<div align="center">
+
+**TABLE IV. COMPARISON OF MODEL COMPRESSION EFFECTS**
+
+| Step | Params | Retention ratio | Latency (ms) | F1 score |
+| :--- | :---: | :---: | :---: | :---: |
+| **Step0** | 1,516,149 | 100.0% | 11.492 | 0.9622 |
+| **Step1** | 569,653 | 37.6% | 4.615 | 0.8774 |
+| **Step2** | 462,389 | 30.5% | 2.177 | 0.8517 |
+| **Step3** | 130,557 | 8.6% | 1.885 | 0.8306 |
+
+</div>
