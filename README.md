@@ -9,24 +9,24 @@ Real-time Atrial Fibrillation (AF) detection using Wearable Photoplethysmography
 
 To address these gaps, we propose STAR-Beat, an ultra-lightweight, temporally-aware, and highly interpretable multi-task AF detection framework.
 
-1)Morphological Prior Extraction: Utilizes a Convolutional Denoising Autoencoder (CDAE).
+&emsp;&emsp;1) Morphological Prior Extraction: Utilizes a Convolutional Denoising Autoencoder (CDAE).
 
-2)Spatio-Temporal Awareness: Integrates Squeeze-and-Excitation (SE) channel attention with a Bidirectional GRU (BiGRU) to capture long-range irregular rhythm dependencies.
+&emsp;&emsp;2) Spatio-Temporal Awareness: Integrates Squeeze-and-Excitation (SE) channel attention with a Bidirectional GRU (BiGRU) to capture long-range irregular rhythm dependencies.
 
-3)Multi-Task Learning & Focal Loss: Simultaneously assesses Signal Quality (SQA) and Cardiac Rhythm, effectively decoupling noise from physiological features.
+&emsp;&emsp;3) Multi-Task Learning & Focal Loss: Simultaneously assesses Signal Quality (SQA) and Cardiac Rhythm, effectively decoupling noise from physiological features.
 
-4)Clinical Interpretability: Validated via UMAP, Grad-CAM, Integrated Gradients, and Occlusion Sensitivity.
+&emsp;&emsp;4) Clinical Interpretability: Validated via UMAP, Grad-CAM, Integrated Gradients, and Occlusion Sensitivity.
 
-5)Edge-Oriented Compression: Achieves an ultra-low inference delay (1.885ms) with only 8.6% of baseline parameters.
+&emsp;&emsp;5) Edge-Oriented Compression: Achieves an ultra-low inference delay (1.885ms) with only 8.6% of baseline parameters.
 
-
+The overall architecture of the model is shown in Fig. 1.
 
 </div>
 
 <p align="center">
 <img width="1231" height="816" alt="Image" src="https://github.com/user-attachments/assets/ee5311eb-18a8-4478-8001-fd98b616175a" />
 <br>
-<em>Figure 1: Overall architecture and training strategy of the proposed STAR-Beat framework.</em>
+<em>Figure 1: Overall architecture and training strategy of the proposed STAR-Beat framework.(a) The STAR-Beat Framework: The methodology consists of three stages. Stage I employs CDAE for self-supervised pre-training. Stage II illustrates the multi-task network, which is directly linked to Stage I via Weight Transfer, explicitly inheriting the pretrained encoder parameters to simultaneously perform SQA and Rhythm Classification. Stage III details the comprehensive multi-stage training pipeline with strict patient-level data splitting, where the Architecture Integration highlights the incorporation of the multi-task model into the training flow.(b) Two-Phase Training Strategy: Demonstrates the iterative optimization process from the denoising objective to downstream tasks, highlighting how the weight transfer provides better initialization, faster convergence, and improved generalization.(c) Loss Functions: Formulates the optimization objectives applied in different phases, utilizing MSE Loss for pre-training reconstruction and Focal Loss to address extreme class imbalance during the multi-task fine-tuning phase.</em>
 </p>
 
 <div align="justify">
@@ -61,19 +61,20 @@ The detailed information about version is as follows: numpy==1.26.4, pandas==2.3
 ## 2. Data Preparation
 The model is validated on two public datasets:
 
-1.Stanford PPG Dataset: https://www.synapse.org/Synapse:syn21985690/files/
+&emsp;&emsp;1.Stanford PPG Dataset: https://www.synapse.org/Synapse:syn21985690/files/
 
-2.MIMIC PERform Dataset: https://zenodo.org/records/15906524
+&emsp;&emsp;2.MIMIC PERform Dataset: https://zenodo.org/records/15906524
 
 Ensure your data is extracted and formatted correctly. Modify the DATA_PATH and EXTRACTED_DIR variables inside the scripts to point to your local .npz or .csv directories.
 
 # 💻 Usage
-## Step 1: Model Training (End-to-End)
-To train the improved STAR-Beat model from scratch (including simulated CDAE pre-training and real-data fine-tuning):**python deep_1_improved.py**.For MIMIC dataset, use **mimic_train_improved_pretrain.py**.
+## Step 1: Model Training 
+To train the improved STAR-Beat model from scratch (including simulated CDAE pre-training and real-data fine-tuning), please run **python deep_1_improved.py**. For MIMIC dataset, use **mimic_train_improved_pretrain.py**.
 
 ## Step 2: Evaluation
 Evaluate the trained model and find the optimal decision threshold dynamically: **evaluation_improved.py**/**mimic_train_evaluation_improved**
 
+The performance on Stanford Public Dataset and MIMIC PERForm is shown as TABLE I.
 <div align="center">
 
 **TABLE I. STAR-BEAT MODEL PERFORMANCE ON PUBLIC DATASETS**
@@ -87,7 +88,9 @@ Evaluate the trained model and find the optimal decision threshold dynamically: 
 
 
 ## Step 3: Ablation Studies
-To verify the contribution of the SE attention, BiGRU, pretrainig, or Multi-task architecture, modify the boolean flags at the top of the ablation script and run:**python ablation_experiement_se_bigru.py** 
+To verify the contribution of the SE attention, BiGRU, pretrainig, or Multi-task architecture, modify the boolean flags at the top of the ablation script and run: **python ablation_experiement_se_bigru.py** 
+
+The ablation study results are displayed in TABLE II.
 
 <div align="center">
 
@@ -104,7 +107,7 @@ To verify the contribution of the SE attention, BiGRU, pretrainig, or Multi-task
 </div>
 
 ## Step 4: Comparision experiment
-In order to comprehensively verify the advancement and effectiveness of the STAR-Beat model in the detection of atrial fibrillation, four representative methods are carefully selected as baseline models for multi-dimensional comparison.
+In order to comprehensively verify the advancement and effectiveness of the STAR-Beat model in the detection of atrial fibrillation, four representative methods are carefully selected as baseline models for multi-dimensional comparison, and the performance on each model is shown in TABLE III.
 <div align="center">
 
 **TABLE III. THE EVALUATION RESULTS OF EACH MODEL ON THE TEST SET**
@@ -123,16 +126,18 @@ In order to comprehensively verify the advancement and effectiveness of the STAR
 ## Step 5: Clinical Interpretability Visualizations
 Generate physiological heatmaps to verify the mathematical and medical logic of the model: **python visualize_mimic_1_actual.py**
 
-This script will output: **UMAP** Latent Space Clustering and Saliency Maps (**Grad-CAM, IG, Occlusion**).
+This script will output: **UMAP** Latent Space Clustering and Saliency Maps (**Grad-CAM, IG, Occlusion**), which is shown in Fig.2.
 
 <p align="center">
 <img width="9424" height="4363" alt="Image" src="https://github.com/user-attachments/assets/49e20170-a0ee-4da5-ad79-7c13d6b91768" />
 <br>
-<em>Fig. 2.	Visualization of the deep feature space and model interpretability.</em>
+<em>Fig. 2.	Visualization of the deep feature space and model interpretability. (a) UMAP visualization of the extracted deep features, demonstrating high separability between classes. (b-g) Temporal importance score mapping for Atrial Fibrillation (left column) and Normal Sinus Rhythm (right column) using three interpretability methods: Class Activation Mapping, Integrated Gradients , and Occlusion Sensitivity. The color map transitions from cool to warm colors, indicating increasing contribution to the model's final prediction.</em>
 </p>
 
 ## Step 6: Lightweighting
 Test the 3-stage ablation compression strategy for wearable devices. Modify ABLATION_STEP =  1, 2, or 3 in the script to test different compression limits: **python deep_1_lite_stage_validation.py**
+
+The variantion of parameters and performance during the compression process is shown in TABLE IV.
 
 <div align="center">
 
