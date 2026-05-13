@@ -87,7 +87,7 @@ Evaluate the trained model and find the optimal decision threshold dynamically: 
 
 
 ## Step 3: Ablation Studies
-To verify the contribution of the SE attention, BiGRU, pretrainig, or Multi-task architecture, modify the boolean flags at the top of the ablation script and run:**python ablation_experiement_se_bigru.py** **python ablation_evaluation.py**
+To verify the contribution of the SE attention, BiGRU, pretrainig, or Multi-task architecture, modify the boolean flags at the top of the ablation script and run:**python ablation_experiement_se_bigru.py** 
 
 <div align="center">
 
