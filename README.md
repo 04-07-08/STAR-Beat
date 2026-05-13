@@ -72,7 +72,7 @@ Ensure your data is extracted and formatted correctly. Modify the DATA_PATH and 
 To train the improved STAR-Beat model from scratch (including simulated CDAE pre-training and real-data fine-tuning), please run **python deep_1_improved.py**. For MIMIC dataset, use **mimic_train_improved_pretrain.py**.
 
 ## Step 2: Evaluation
-Evaluate the trained model and find the optimal decision threshold dynamically: **evaluation_improved.py**/**mimic_train_evaluation_improved**
+Evaluate the trained model and find the optimal decision threshold dynamically: **evaluation_improved.py**( For Stanford Public Dataset ) / **mimic_train_evaluation_improved**( For MIMIC PERForm )
 
 The performance on Stanford Public Dataset and MIMIC PERForm is shown as TABLE I.
 <div align="center">
