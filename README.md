@@ -24,7 +24,7 @@ The overall architecture of the model is shown in Fig. 1.
 </div>
 
 <p align="center">
-<img width="1231" height="816" alt="Image" src="https://github.com/user-attachments/assets/02c8501f-2f0f-4769-8b2a-5ab3de0cd658" />
+<img width="1231" height="816" alt="Image" src="https://github.com/user-attachments/assets/f6a485ad-9d47-49a0-baae-2a3ec748d841" /
 <br>
 <em>Figure 1: Overall architecture and training strategy of the proposed STAR-Beat framework.(a) The STAR-Beat Framework: The methodology consists of three stages. Stage I employs CDAE for self-supervised pre-training. Stage II illustrates the multi-task network, which is directly linked to Stage I via Weight Transfer, explicitly inheriting the pretrained encoder parameters to simultaneously perform SQA and Rhythm Classification. Stage III details the comprehensive multi-stage training pipeline with strict patient-level data splitting, where the Architecture Integration highlights the incorporation of the multi-task model into the training flow.(b) Two-Phase Training Strategy: Demonstrates the iterative optimization process from the denoising objective to downstream tasks, highlighting how the weight transfer provides better initialization, faster convergence, and improved generalization.(c) Loss Functions: Formulates the optimization objectives applied in different phases, utilizing MSE Loss for pre-training reconstruction and Focal Loss to address extreme class imbalance during the multi-task fine-tuning phase.</em>
 </p>
