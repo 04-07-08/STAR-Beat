@@ -8,11 +8,18 @@ Official code repository for the paper: "STAR-Beat: A Spatio-Temporal Attention 
 Real-time Atrial Fibrillation (AF) detection using Wearable Photoplethysmography (PPG) is highly constrained by severe motion artifacts (MA), lack of rhythm-dependency extraction, and strict hardware limitations of edge devices. Furthermore, the "black-box" nature of deep learning models limits clinical trust.
 
 To address these gaps, we propose STAR-Beat, an ultra-lightweight, temporally-aware, and highly interpretable multi-task AF detection framework.
-Morphological Prior Extraction: Utilizes a Convolutional Denoising Autoencoder (CDAE).
-Spatio-Temporal Awareness: Integrates Squeeze-and-Excitation (SE) channel attention with a Bidirectional GRU (BiGRU) to capture long-range irregular rhythm dependencies.
-Multi-Task Learning & Focal Loss: Simultaneously assesses Signal Quality (SQA) and Cardiac Rhythm, effectively decoupling noise from physiological features.
-Edge-Oriented Compression: Achieves an ultra-low inference delay (1.885ms) with only 8.6% of baseline parameters.
-Clinical Interpretability: Validated via UMAP, Grad-CAM, Integrated Gradients, and Occlusion Sensitivity.
+
+1)Morphological Prior Extraction: Utilizes a Convolutional Denoising Autoencoder (CDAE).
+
+2)Spatio-Temporal Awareness: Integrates Squeeze-and-Excitation (SE) channel attention with a Bidirectional GRU (BiGRU) to capture long-range irregular rhythm dependencies.
+
+3)Multi-Task Learning & Focal Loss: Simultaneously assesses Signal Quality (SQA) and Cardiac Rhythm, effectively decoupling noise from physiological features.
+
+4)Clinical Interpretability: Validated via UMAP, Grad-CAM, Integrated Gradients, and Occlusion Sensitivity.
+
+5)Edge-Oriented Compression: Achieves an ultra-low inference delay (1.885ms) with only 8.6% of baseline parameters.
+
+
 
 </div>
 
@@ -87,18 +94,19 @@ In order to comprehensively verify the advancement and effectiveness of the STAR
 
 </div>
 
-## Step 5: Lightweighting
-Test the 3-stage ablation compression strategy for wearable devices. Modify ABLATION_STEP =  1, 2, or 3 in the script to test different compression limits: **python deep_1_lite_stage_validation.py**
-
-## Step 6: Clinical Interpretability Visualizations
+## Step 5: Clinical Interpretability Visualizations
 Generate physiological heatmaps to verify the mathematical and medical logic of the model: **python visualize_mimic_1_actual.py**
 
 This script will output: **UMAP** Latent Space Clustering and Saliency Maps (**Grad-CAM, IG, Occlusion**).
 
+## Step 6: Lightweighting
+Test the 3-stage ablation compression strategy for wearable devices. Modify ABLATION_STEP =  1, 2, or 3 in the script to test different compression limits: **python deep_1_lite_stage_validation.py**
+
+
 # 🔍 Model Explainability
 STAR-Beat bridges the trust gap in deep learning by providing explicit physiological transparency. Our interpretability module proves that the model focuses on erratic rhythms, variable amplitudes, and morphological distortions (pathological hemodynamic characteristics), rather than fitting data biases.
 <p align="center">
-<img src="https://via.placeholder.com/800x400.png?text=Replace+with+Fig.+2+from+the+paper" alt="Interpretability Visualizations">
+<img width="9424" height="4363" alt="Image" src="https://github.com/user-attachments/assets/49e20170-a0ee-4da5-ad79-7c13d6b91768" />
 <br>
 <em>Fig. 2.	Visualization of the deep feature space and model interpretability.</em>
 </p>
